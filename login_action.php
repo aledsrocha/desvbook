@@ -10,10 +10,11 @@
 
 		if ($auth->validateLogin($email, $password)) {
 			header("Location:" .$base);
-	exit;
+			exit;
 		}
 	}
 
+	$_SESSION['flash'] = 'usuario ou senha invalidos';
 	header("Location:" .$base);
 	exit;
  ?>
