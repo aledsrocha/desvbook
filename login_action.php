@@ -15,6 +15,6 @@
 	}
 
 	$_SESSION['flash'] = 'usuario ou senha invalidos';
-	header("Location:" .$base);
+	header("Location:" .$base. "/login.php");
 	exit;
  ?>

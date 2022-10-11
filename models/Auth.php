@@ -52,5 +52,29 @@
 
 			return false;
 		}//validate login
+
+		public function emailExists($email){
+			$userDao = new UserDaoMysql($this->pdo);
+
+			return $userDao->findByEmail($email) ? true : false ;
+		}
+		//registro de novo usuario para fazer login apos o cadastro necessario criar o token
+		public function registerUser($name, $password, $email, $birthdate){
+			$userDao = new UserDaoMysql($this->pdo);
+
+			$hash = password_hash($password, PASSWORD_DEFAULT);
+			$token = md5(time().rand(0, 9999));
+
+			$newUser = new User();
+			$newUser->name = $name;
+			$newUser->email = $email;
+			$newUser->password = $hash;
+			$newUser->birthdate = $birthdate;
+			$newUser->token = $token;
+
+			$userDao->insert($newUser);
+
+			$_SESSION['token'] = $token;
+		}
 	}//class
  ?>
