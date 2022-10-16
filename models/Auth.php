@@ -3,10 +3,12 @@
 	class Auth{
 		private $pdo;
 		private $base;
+		private $dao;
 		//construct para salvar os dados
-		public function __construct($pdo, $base){
+		public function __construct(PDO $pdo, $base){
 			$this->pdo = $pdo;
 			$this->base = $base;
+			$this->dao = new UserDAOMySql($this->pdo);
 
 		}
 
@@ -16,8 +18,8 @@
 				//armazenando o token
 				$token = $_SESSION['token'];
 
-				$userDao = new UserDaoMysql($this->pdo);
-				$user = $userDao->findByToken($token);
+				
+				$user = $this->dao->findByToken($token);
 
 				//verificando se existe o usuario se existir retorna ele msm
 				if ($user) {
@@ -33,9 +35,8 @@
 		}//checktoken
 
 		public function validateLogin($email, $password){
-			$userDao = new UserDaoMysql($this->pdo);
-
-			$user = $userDao->findByEmail($email);
+			
+			$user = $this->dao->findByEmail($email);
 			//verificando se existe usuario
 			if ($user) {
 				//verificando a senha
@@ -44,7 +45,7 @@
 
 					$_SESSION['token'] = $token;
 					$user->token = $token;
-					$userDao->update($user);
+					$this->dao->update($user);
 
 					return true;
 				}
@@ -54,13 +55,11 @@
 		}//validate login
 
 		public function emailExists($email){
-			$userDao = new UserDaoMysql($this->pdo);
-
-			return $userDao->findByEmail($email) ? true : false ;
+			return $this->dao->findByEmail($email) ? true : false ;
 		}
 		//registro de novo usuario para fazer login apos o cadastro necessario criar o token
 		public function registerUser($name, $password, $email, $birthdate){
-			$userDao = new UserDaoMysql($this->pdo);
+			
 
 			$hash = password_hash($password, PASSWORD_DEFAULT);
 			$token = md5(time().rand(0, 9999));
@@ -72,7 +71,7 @@
 			$newUser->birthdate = $birthdate;
 			$newUser->token = $token;
 
-			$userDao->insert($newUser);
+			$this->dao->insert($newUser);
 
 			$_SESSION['token'] = $token;
 		}

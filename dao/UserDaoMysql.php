@@ -12,6 +12,7 @@
 			$u = new User();
 			$u->id = $array['id'] ?? 0;
 			$u->email = $array['email'] ?? '';
+			$u->password = $array['password'] ?? '';
 			$u->birthdate = $array['birthdate'] ?? '';
 			$u->city = $array['city'] ?? '';
 			$u->work = $array['work'] ?? '';
@@ -67,8 +68,8 @@
 				birthdate = :birthdate,
 				city = :city,
 				work = :work,
-				avatar = :avatar
-				cover = :cover
+				avatar = :avatar,
+				cover = :cover,
 				token = :token
 				WHERE id = :id");
 
