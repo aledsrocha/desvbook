@@ -6,14 +6,18 @@
 
 	//armazenando a info do user
 	$userInfo = $auth->checktoken();
+	//verificando qual menu ta ativo
+	$activeMenu = 'perfil';
 	
 
 	require_once 'partials/header.php';
 	require_once 'partials/menu.php';
+
+
  ?>
 
 <section class="feed mt-10">
-....
+	...
 </section>
 
 
