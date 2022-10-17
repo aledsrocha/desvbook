@@ -1,3 +1,5 @@
+  </section>
+
   <div class="modal">
         <div class="modal-inner">
             <a rel="modal:close">&times;</a>

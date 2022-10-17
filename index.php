@@ -9,11 +9,14 @@
 	
 
 	require_once 'partials/header.php';
+	require_once 'partials/menu.php';
  ?>
 
- <section class="container main">
+<section class="feed mt-10">
+....
+</section>
 
- </section>
+
 
  <?php
  require_once 'partials/footer.php';
