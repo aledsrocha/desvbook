@@ -6,5 +6,7 @@
 
 	//armazenando a info do user
 	$userInfo = $auth->checktoken();
-	echo 'index logado';
+	
+
+	require_once 'partials/header.php';
  ?>
