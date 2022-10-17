@@ -10,3 +10,11 @@
 
 	require_once 'partials/header.php';
  ?>
+
+ <section class="container main">
+
+ </section>
+
+ <?php
+ require_once 'partials/footer.php';
+?>
