@@ -9,6 +9,9 @@
 	//verificando qual menu ta ativo
 	$activeMenu = 'perfil';
 	
+	//1 pega as lista dos usuarios que eu sigo
+
+	//2pegar os post ordenado pela data
 
 	require_once 'partials/header.php';
 	require_once 'partials/menu.php';
@@ -23,6 +26,8 @@
 
  <?php
  require_once 'partials/feed-editor.php';
+
+
 ?>
 		</div>
 

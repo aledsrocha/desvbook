@@ -1,18 +1,41 @@
+<?php
+    //pegando so primeiro nome do db, ncessario info
+    $firstName = current(explode(' ', $userInfo->name));
 
+?>
 
+<div class="box feed-new">
+ <div class="box-body">
+    <div class="feed-new-editor m-10 row">
+         <div class="feed-new-avatar">
+           <img src="<?=$base;?>/media/avatars/<?=$userInfo->avatar;?>" />
+           </div>
+         <div class="feed-new-input-placeholder">O que você está pensando,<?=$firstName;?>?</div>
+         <div class="feed-new-input" contenteditable="true"></div>
+         <div class="feed-new-send">
+         <img src="<?=$base;?>/assets/images/send.png" />
+            </div>
+            <form class="feed-new-form" method="post" action="<?=$base;?>/feed_editor_action.php">
+                <input type="hidden" name="body">
+            </form>
+                </div>
+                </div>
+                </div>
 
+        <script>
+            //pegando as class do feed editor para add
+            let feedInput = document.querySelector('.feed-new-input');
+            let feedSumbmit = document.querySelector('.feed-new-send');
+            let feedForm = document.querySelector('.feed-new-form');
 
-			 <div class="box feed-new">
-                        <div class="box-body">
-                            <div class="feed-new-editor m-10 row">
-                                <div class="feed-new-avatar">
-                                    <img src="<?=$base;?>/media/avatars/avatar.jpg" />
-                                </div>
-                                <div class="feed-new-input-placeholder">O que você está pensando, Bonieky?</div>
-                                <div class="feed-new-input" contenteditable="true"></div>
-                                <div class="feed-new-send">
-                                    <img src="<?=$base;?>/assets/images/send.png" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            //pegando o texto digitado
+            feedSumbmit.addEventListener('click', function(){
+                //pegando o valor
+                let value = feedInput.innerText.trim();
+
+                //pegando o valor e jogando no form
+                feedForm.querySelector('input[name=body]').value = value;
+                //enviar o form
+                feedForm.submit();
+            } );
+        </script>
