@@ -1,6 +1,8 @@
 <?php 
 	require_once 'config.php';
 	require_once 'models/Auth.php';
+	require_once 'dao/postDaoMysql.php';
+	
 
 	$auth = new Auth($pdo, $base);
 
@@ -9,9 +11,10 @@
 	//verificando qual menu ta ativo
 	$activeMenu = 'perfil';
 	
-	//1 pega as lista dos usuarios que eu sigo
 
-	//2pegar os post ordenado pela data
+	$postDao = new PostDaoMysql($pdo);
+	//pegando o feed do user logado
+	$feed = $postDao->getHomeFeed($userInfo->id);
 
 	require_once 'partials/header.php';
 	require_once 'partials/menu.php';
