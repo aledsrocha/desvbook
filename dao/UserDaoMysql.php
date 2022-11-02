@@ -60,6 +60,22 @@
 			return false;
 
 		}
+		//para o post dao
+		public function findById($id){
+			if (!empty($id)) {
+				$sql = $this->pdo->prepare("SELECT * FROM users  WHERE id = :id");
+				$sql->bindValue(':id', $id);
+				$sql->execute();
+
+				//verificando se achou algo do token
+				if ($sql->rowCount() > 0) {
+					$data = $sql->fetch(PDO::FETCH_ASSOC);
+					$user = $this->generateUser($data);
+					return $user;
+				}
+			}
+
+		}
 
 		public function update(User $u){
 			$sql = $this->pdo->prepare("UPDATE users SET 

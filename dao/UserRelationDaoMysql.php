@@ -13,7 +13,7 @@ require_once 'models/UserRelation.php';
 		}
 		//pegando as relaçoes do usuario
 		public function getRelationFrom($id){
-			$user = [$id];
+			$users = [$id];
 			//pegando somente 1 dado da tabela
 			$sql = $this->pdo->prepare("SELECT user_to FROM userrelations WHERE user_from = :user_from");
 			$sql->bindValue(':user_from', $id);
@@ -24,9 +24,9 @@ require_once 'models/UserRelation.php';
 				$data = $sql->fetchAll();
 
 				foreach ($data as $item) {
-					$user = $item['user_to'];
+					$users[] = $item['user_to'];
 				}
 			}
-			return $user;
+			return $users;
 		}
 }

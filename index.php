@@ -28,10 +28,15 @@
 
 
  <?php
- require_once 'partials/feed-editor.php';
+ require_once 'partials/feed-editor.php';?>
+
+<!-- repetindo o feed -->
+ <?php foreach ($feed as $item):?>
+  <?php require_once 'partials/feed-item.php';?>
+<?php endforeach;?>
 
 
-?>
+
 		</div>
 
 		<div class="column side pl-5">
