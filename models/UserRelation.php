@@ -11,7 +11,7 @@
 
 	interface UserRelationDao{
 		
-		public function insert(UserRelation $u);
+		public function insert(UserRelation $ur);
 		//pegando as relaçoes do usuario
 		public function getRelationFrom($id);
 	}

@@ -8,7 +8,7 @@ require_once 'models/UserRelation.php';
 			$this->pdo = $driver;
 		}
 
-		public function insert(UserRelation $u){
+		public function insert(UserRelation $ur){
 
 		}
 		//pegando as relaçoes do usuario

@@ -31,7 +31,7 @@ require_once 'dao/UserDaoMysql.php';
 			$urDao = new UserRelationDaoMysql($this->pdo);
 			//pegando a lista completa
 			$userList = $urDao->getRelationFrom($id_user);
-
+			$userList[] = $id_user; 
 	
 			//2pegar os post ordenado pela data
 
