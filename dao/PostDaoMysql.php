@@ -77,6 +77,25 @@ require_once 'dao/UserDaoMysql.php';
 			
 			return $array;
 		}
+		//pegando as fotos
+		public function getFotosFrom($id_user){
+			$array = [];
+
+			$sql = $this->pdo->prepare("SELECT * FROM posts WHERE id_user = :id_user AND type = 'fotos'
+			ORDER BY create_at DESC");
+			$sql->bindValue(':id_user', $id_user);
+			$sql->execute();
+
+			if ($sql->rowCount() > 0) {
+				$data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+				//3 transformar o resultado em objetos.
+				$array = $this->_postListToObject($data, $id_user);
+			}
+
+			return $array;
+		}
+
 		//pequena função auxiliar para  retornar array em objeto do tipo post
 		private function _postListToObject($postList, $id_user){
 			$posts = [];
@@ -116,5 +135,7 @@ require_once 'dao/UserDaoMysql.php';
 			return $post;
 
 		}
+
+
 
 	}//class

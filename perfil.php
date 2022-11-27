@@ -170,10 +170,10 @@
                             <?php foreach($user->fotos as $item): ?>
                             	<div class="user-photo-item">
                                 <a href="#modal-1" rel="modal:open">
-                                    <img src="media/uploads/1.jpg" />
+                                    <img src="<?=$base?>/media/uploads/<?=$item->body;?>" />
                                 </a>
                                 <div id="modal-1" style="display:none">
-                                    <img src="media/uploads/1.jpg" />
+                                    <img src="<?=$base?>/media/uploads/<?=$item->body;?>" />
                                 </div>
                             </div>
 
