@@ -9,7 +9,7 @@
 	//armazenando a info do user
 	$userInfo = $auth->checktoken();
 	//verificando qual menu ta ativo
-	$activeMenu = 'perfil';
+	$activeMenu = 'home';
 	
 
 	$postDao = new PostDaoMysql($pdo);

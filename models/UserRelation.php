@@ -13,6 +13,7 @@
 		
 		public function insert(UserRelation $ur);
 		//pegando as relaçoes do usuario
-		public function getRelationFrom($id);
+		public function getFollowing($id);
+		public function getFollowers($id);
 	}
  ?>

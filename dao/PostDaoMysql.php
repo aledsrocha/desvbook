@@ -25,13 +25,40 @@ require_once 'dao/UserDaoMysql.php';
 			$sql->execute();
 		}
 
+		public function getUserFeed($id_user){
+			$array = [];
+			//1 pega as lista dos usuarios que eu sigo
+			
+			//2pegar os post ordenado pela data
+
+			//pegando a lista de usuario em array e fazendo sair em lista
+			$sql = $this->pdo->prepare("SELECT * FROM posts
+				WHERE id_user = :id_user
+				ORDER BY create_at DESC");
+
+			$sql->bindValue(':id_user',$id_user);
+			$sql->execute();
+
+			if ($sql->rowCount() > 0) {
+				$data = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+				//3 transformar o resultado em objetos.
+				$array = $this->_postListToObject($data, $id_user);
+			}
+
+			
+			return $array;
+		}
+
+
 		public function getHomeFeed($id_user){
 			$array = [];
 			//1 pega as lista dos usuarios que eu sigo
 			$urDao = new UserRelationDaoMysql($this->pdo);
 			//pegando a lista completa
-			$userList = $urDao->getRelationFrom($id_user);
+			$userList = $urDao->getFollowing($id_user);
 			$userList[] = $id_user; 
+
 	
 			//2pegar os post ordenado pela data
 

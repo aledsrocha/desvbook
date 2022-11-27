@@ -1,5 +1,6 @@
 <?php 
 	require_once 'models/User.php';
+	require_once 'dao/UserRelationDaoMysql.php';
 	class UserDaoMysql implements UserDao{
 
 		//pdo para fazer as consultas
@@ -8,7 +9,7 @@
 			$this->pdo = $driver;
 		}//construct
 
-		private function generateUser($array){
+		private function generateUser($array, $full = false){
 			$u = new User();
 			$u->id = $array['id'] ?? 0;
 			$u->email = $array['email'] ?? '';
@@ -21,8 +22,31 @@
 			$u->cover = $array['cover'] ?? '';
 			$u->token = $array['token'] ?? '';
 
+
+			//pegando as informações do user completa ou n
+		if ($full) {
+			$urDaoMysql = new UserRelationDaoMysql($this->pdo);
+			// follorwers == quem segue o usuario
+			$u->follorwers = $urDaoMysql->getFollowers($u->id);
+			foreach ($u->follorwers as $key => $follorwer_id) {
+			$newUser = $this->findById($follorwer_id);
+			$u->follorwers[$key] = $newUser;
+			}
+
+			//following == quem o usuario segue
+			$u->following = $urDaoMysql->getFollowing($u->id);
+			foreach ($u->following as $key => $follorwer_id) {
+			$newUser = $this->findById($follorwer_id);
+			$u->following[$key] = $newUser;
+			}
+
+			//fotos
+			$u->fotos = [];
+		}
+
 			return $u;
 		}
+
 
 
 		public function findByToken($token){
@@ -60,8 +84,8 @@
 			return false;
 
 		}
-		//para o post dao
-		public function findById($id){
+		//para o post dao ==$full
+		public function findById($id, $full = false){
 			if (!empty($id)) {
 				$sql = $this->pdo->prepare("SELECT * FROM users  WHERE id = :id");
 				$sql->bindValue(':id', $id);
@@ -70,7 +94,7 @@
 				//verificando se achou algo do token
 				if ($sql->rowCount() > 0) {
 					$data = $sql->fetch(PDO::FETCH_ASSOC);
-					$user = $this->generateUser($data);
+					$user = $this->generateUser($data, $full);
 					return $user;
 				}
 			}
