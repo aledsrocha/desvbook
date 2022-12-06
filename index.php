@@ -29,13 +29,10 @@
 
  <?php
  require_once 'partials/feed-editor.php';?>
-
 <!-- repetindo o feed -->
  <?php foreach ($feed as $item):?>
-  <?php require_once 'partials/feed-item.php';?>
+  <?php require 'partials/feed-item.php';?>
 <?php endforeach;?>
-
-
 
 		</div>
 

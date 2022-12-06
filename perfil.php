@@ -186,13 +186,13 @@
                     </div>
 
                     <?php if($id == $userInfo->id): ?>
-                    	<?php require_once 'partials/feed-editor.php';?>
+                    	<?php require 'partials/feed-editor.php';?>
                     <?php endif;?>
 
                     <!-- o $item tem que ser assim por causa do feed-item -->
                     <?php if(count($feed) > 0 ): ?>
                     	<?php foreach($feed as $item): ?>
-                    		<?php require_once 'partials/feed-item.php' ?>;
+                    		<?php require 'partials/feed-item.php' ?>;
                     	<?php endforeach;?>
 
                     <?php else: ?>
