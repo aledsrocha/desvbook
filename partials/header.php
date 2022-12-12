@@ -21,7 +21,7 @@
             <div class="head-side">
                 <div class="head-side-left">
                     <div class="search-area">
-                        <form method="GET" action="<?$base;?>search.php">
+                        <form method="GET" action="<?=$base;?>/search.php">
                             <input type="search" placeholder="Pesquisar" name="s" />
                         </form>
                     </div>
@@ -30,7 +30,7 @@
                     <a href="<?=$base;?>/perfil.php" class="user-area">
                         <div class="user-area-text"><?=$firstName?></div>
                         <div class="user-area-icon">
-                            <img src="<?=$base;?>media/avatars/<?=$userInfo->avatar;?>" />
+                            <img src="<?=$base;?>/media/avatars/<?=$userInfo->avatar;?>" />
                         </div>
                     </a>
                     <a href="<?=$base;?>/logout.php" class="user-logout">
