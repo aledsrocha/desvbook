@@ -61,7 +61,7 @@
      <div class="profile-cover" style="background-image: url('<?=$base?>/media/covers/<?=$user->cover?>');"></div>
           <div class="profile-info m-20 row">
           <div class="profile-info-avatar">
-          <img src="<?=$base?>/media/avatars/<?=$user->avatar?>" />
+          <img src="<?=$base;?>/media/avatars/<?=$user->avatar;?>" />
                             </div>
                             <div class="profile-info-name">
                                 <div class="profile-info-name-text"><?=$user->name?></div>
