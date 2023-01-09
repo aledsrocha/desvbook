@@ -71,9 +71,7 @@
 			exit;
 			}
 		}
-		echo "<pre>";
-		print_r($_FILES);
-		exit;
+		
 
 		//AVATAR
 		//verificando se tem erro na imagem
@@ -99,11 +97,12 @@
 				}
 				$x = $avatarWidth - $newWidith;
 				$y = $avatarHeight - $newHeight;
-				$x = $x<0 ? $x/2 : $x;
-				$y = $y<0 ? $y/2 : $y;
+				$x = $x < 0 ? $x/2 : $x;
+				$y = $y < 0 ? $y/2 : $y;
 
 				//pegando a imagem final
 				$finalImage = imagecreatetruecolor($avatarWidth, $avatarHeight);
+
 
 				switch ($newAvatar['type']) {
 					case 'image/jpeg';
@@ -123,10 +122,62 @@
 					$x, $y, 0,0,
 					$newWidith, $newHeight, $widthOrigi, $heightOrigi
 				);
-				imagejpeg($finalImage, '/teste.jpeg', 100);
+
+				$avatarName = md5(time().rand(0,9999)). '.jpg';
+
+				imagejpeg($finalImage, './media/avatars/'. $avatarName, 100);
+
+
+				$userInfo->avatar = $avatarName;
 			}
 		}
-		exit;
+
+		 //COVER
+    if(isset($_FILES['cover']) && !empty($_FILES['cover']['tmp_name'])) {
+        $newCover = $_FILES['cover'];
+
+        if(in_array($newCover['type'], ['image/jpeg', 'image/jpg', 'image/png'])) {
+            $coverWidth = 850;
+            $coverHeigth = 313;
+
+            list($widthOrigin, $heigthOrigin) = getimagesize($newCover['tmp_name']);
+            $ratio = $widthOrigin / $heigthOrigin;
+            $newWidth = $coverWidth; 
+            $newHeight = $newWidth / $ratio;
+
+            if($newHeight < $coverHeigth) {
+                $newHeight = $coverHeigth; 
+                $newWidth = $newHeight * $ratio; 
+            }
+            
+            $x = $coverWidth - $newWidth;
+            $y = $coverHeigth - $newHeight;
+            $x = $x < 0 ? $x/2 : $x;
+            $y = $y < 0 ? $y/2 : $y;
+
+            $finalImage = imagecreatetruecolor($coverWidth, $coverHeigth);
+            switch($newCover['type']) {
+                case 'image/jpeg';
+                case 'image/jpg';
+                    $image = imageCreateFromJpeg($newCover['tmp_name']);
+                break;
+                case 'image/png';
+                    $image = imageCreateFromPng($newCover['tmp_name']);
+                break;
+            }
+
+            imagecopyresampled(
+                $finalImage, $image,
+                $x, $y, 0, 0, 
+                $newWidth, $newHeight, $widthOrigin, $heigthOrigin
+            );
+            $coverName = $userInfo->id.'-'.md5(time().rand(0, 9999)).'.jpg';
+
+            imagejpeg($finalImage, './media/covers/'.$coverName, 100);
+            $userInfo->cover = $coverName;
+        }
+    }
+
 
 		//fazendo o update dos dados depois de ter feito todo processo
 		$userDao->update($userInfo);
