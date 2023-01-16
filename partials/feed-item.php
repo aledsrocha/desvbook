@@ -1,4 +1,5 @@
 <?php 
+require_once 'feed-item-script.php';
  $actionFrase = '';
 
  switch ($item->type) {
