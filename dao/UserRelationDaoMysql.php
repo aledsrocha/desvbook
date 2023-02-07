@@ -7,10 +7,24 @@ require_once 'models/UserRelation.php';
 		public function __construct(PDO $driver){
 			$this->pdo = $driver;
 		}
-
+		//
 		public function insert(UserRelation $ur){
+			$sql = $this->pdo->prepare("INSERT INTO userrelations (user_from, user_to) VALUES (:user_from,     :user_to)");
+			$sql->bindValue(':user_to', $ur->user_to);
+			$sql->bindValue(':user_from', $ur->user_from);
+			$sql->execute();
 
 		}
+
+		public function delete(UserRelation $ur){
+			$sql = $this->pdo->prepare("DELETE FROM userrelations WHERE user_from = :user_from AND user_to = :user_to");
+			$sql->bindValue(':user_to', $ur->user_to);
+			$sql->bindValue(':user_from', $ur->user_from);
+			$sql->execute();
+
+		}
+
+
 		//lista de usuario segue
 		public function getFollowing($id){
 			$users = [];
@@ -48,4 +62,19 @@ require_once 'models/UserRelation.php';
 			}
 			return $users;
 		}
+
+		public function isFollowing($id1, $id2){
+$sql = $this->pdo->prepare("SELECT * FROM userrelations WHERE user_from = :user_from AND user_to = :user_to");
+			$sql->bindValue(':user_from', $id1);
+			$sql->bindValue('user_to', $id2);
+			$sql->execute();
+
+			if($sql->rowCount() > 0){
+				return true;
+			}
+			else{
+				return false;
+			}
+
+	}
 }
