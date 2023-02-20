@@ -31,6 +31,20 @@ require_once 'feed-item-script.php';
           </div>
          </div>
     <div class="feed-item-body mt-10 m-width-20">
+        <!-- exibição do feedpostado do db -->
+        <?php
+        switch ($item->type) {
+     case 'text':
+         echo n12br($item->body);
+         break;
+     
+      case 'photo':
+         echo '<img src="' .$base.' /media/uploads/' . $item->body. '" />' ;
+         break;
+     
+ }
+
+        ?>
        <?=$item->body;?>
           </div>
          <div class="feed-item-buttons row mt-20 m-width-20">

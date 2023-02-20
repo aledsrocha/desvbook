@@ -181,17 +181,18 @@
                             </div>
                         </div>
                         <div class="box-body row m-20">
-                            <?php if(count($user->fotos)> 0): ?>
+                            <?php if(count($user->fotos) < 0): ?>
                             <?php foreach($user->fotos as $key => $item): ?>
+                                <?php if( $key < 4):?>
                             	<div class="user-photo-item">
-                                <a href="#modal-<?=$key?>" rel="modal:open">
-                                    <img src="<?=$base?>/media/uploads/<?=$item->body;?>" />
+                                <a href="#modal-<?=$key;?>" data-modal-open>
+                                    <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
                                 </a>
                                 <div id="modal-<?=$key?>" style="display:none">
-                                    <img src="<?=$base?>/media/uploads/<?=$item->body;?>" />
+                                    <img src="<?=$base;?>/media/uploads/<?=$item->body;?>" />
                                 </div>
                             </div>
-
+                            <?php endif; ?>
                             <?php endforeach; ?>
                             <?php endif; ?>
                             
@@ -219,6 +220,13 @@
             </div>
 
         </section>
+
+        <script>
+            window.onload = function(){
+                var modal = new VanillaModal.deafault();
+
+            };
+        </script>
 
  <?php
  require_once 'partials/footer.php';
