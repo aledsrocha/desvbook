@@ -111,3 +111,24 @@
     font-size:13px;
     padding:0 15px;
 }
+
+.feed-item-more-window{
+    position: absolute;
+    background-color: #fff;
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    margin-left: -130px;
+    display: none;
+}
+
+.feed-item-more-window a{
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+.feed-item-more-window a:hover{
+    background-color: #CCC;
+}

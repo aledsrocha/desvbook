@@ -26,16 +26,21 @@ require_once 'feed-item-script.php';
        <br/>
     <span class="fidi-date"><?=date('Y/m/d', strtotime($item->create_at)); ?></span>
        </div>
+       <?php if($item->mine): ?>
        <div class="feed-item-head-btn">
            <img src="<?=$base;?>/assets/images/more.png" />
+           <div class="feed-item-more-window">
+               <a href="<?=$base;?>/excluir_post_action.php?id=<?=$item->id;?>">Excluir Post</a>
+           </div>
           </div>
          </div>
+     <?php endif;?>
     <div class="feed-item-body mt-10 m-width-20">
         <!-- exibição do feedpostado do db -->
         <?php
         switch ($item->type) {
      case 'text':
-         echo n12br($item->body);
+         echo($item->body);
          break;
      
       case 'photo':

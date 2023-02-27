@@ -27,6 +27,13 @@ require_once 'dao/PostCommentDaoMysql.php';
 			$sql->execute();
 		}
 
+		public function delete($id,$id_user){
+			$sql = $this->pdo->prepare("DELETE FROM posts WHERE id = :id AND id_user = :id_user");
+			$sql->bindValue(':id_user', $id_user);
+			$sql->bindValue(':id', $id);
+			$sql->execute();
+		}
+
 		public function getUserFeed($id_user){
 			$array = [];
 			//1 pega as lista dos usuarios que eu sigo

@@ -17,5 +17,6 @@
 		public function getHomeFeed($id_user);
 		public function getUserFeed($id_user);
 		public function getFotosFrom($id_user);
+		public function delete($id, $id_user);
 	}
  ?>
