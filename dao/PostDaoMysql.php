@@ -62,6 +62,7 @@ require_once 'dao/PostCommentDaoMysql.php';
 
 		public function getHomeFeed($id_user){
 			$array = [];
+			$perPage = 5;
 			//1 pega as lista dos usuarios que eu sigo
 			$urDao = new UserRelationDaoMysql($this->pdo);
 			//pegando a lista completa
@@ -74,7 +75,7 @@ require_once 'dao/PostCommentDaoMysql.php';
 			//pegando a lista de usuario em array e fazendo sair em lista
 			$sql = $this->pdo->query("SELECT * FROM posts
 				WHERE id_user IN (".implode(',' , $userList).")
-				ORDER BY create_at DESC");
+				ORDER BY create_at DESC LIMIT $perPage");
 
 			if ($sql->rowCount() > 0) {
 				$data = $sql->fetchAll(PDO::FETCH_ASSOC);
